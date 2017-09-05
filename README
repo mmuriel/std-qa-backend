@@ -1,1 +1,2 @@
-README
+Base structure to start an app based on Laravel 5.4 running on a docker container (https://hub.docker.com/r/maomuriel/laravel54-php7/)
+
