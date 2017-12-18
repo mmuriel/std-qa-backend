@@ -1,0 +1,61 @@
+[
+	{
+		"lc":"",
+		"ele":[
+			{
+				"field": "fecha_hora",
+				"operator": ">=",
+				"value": "'.$dateIniStr.'"
+			}, 
+			{
+				"field": "fecha_hora",
+				"operator": "<",
+				"value": "'.$dateEndStr.'",
+				"lc" : "and"
+			}
+		]
+	},
+	{
+		"lc": "and",
+		"ele":[
+			{
+				"field": "idcanal",
+				"operator": "=",
+				"value": "'.$canal->id.'"
+			}
+		]
+	}
+]
+
+=======================================================================
+
+
+
+
+[
+	{
+		"lc":"",
+		"ele":[
+			{
+				"field": "fecha_hora",
+				"operator": ">=",
+				"value": "'.$dateIniStr.'"
+			},
+			{
+				"field": "fecha_hora",
+				"operator": ">=",
+				"value": "'.$dateIniStr.'"
+			},
+		]
+	},
+	{
+		"lc": "&&",
+		"ele":[
+			{
+				"field": "idcanal",
+				"operator": "=",
+				"value": "'.$canal->id.'"
+			}
+		]
+	}
+]

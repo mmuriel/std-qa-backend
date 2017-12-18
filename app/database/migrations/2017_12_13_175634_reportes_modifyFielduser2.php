@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReporteTable extends Migration
+class ReportesModifyFielduser2 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateReporteTable extends Migration
      */
     public function up()
     {
-        Schema::create('reportes', function (Blueprint $table) {
-            $table->increments('id');            
-            $table->timestamps();
+        Schema::table('reportes', function (Blueprint $table) {
+            //
+            $table->string('usuario',160)->after('tipo')->index();
+
         });
     }
 
@@ -26,6 +27,9 @@ class CreateReporteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reportes');
+        Schema::table('reportes', function (Blueprint $table) {
+            //
+            $table->dropColumn('usuario');
+        });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReporteTable extends Migration
+class AddUsuariosCanalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateReporteTable extends Migration
      */
     public function up()
     {
-        Schema::create('reportes', function (Blueprint $table) {
-            $table->increments('id');            
+        Schema::create('usuarios_canales', function (Blueprint $table) {
+            $table->increments('id');  
+            $table->integer('usuario')->unsigned()->index();
+            $table->integer('canal')->unsigned()->index();          
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateReporteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reportes');
+        Schema::dropIfExists('usuarios_canales');
     }
 }

@@ -1,0 +1,5 @@
+docker run --name std-qa-back-mariadb -v /Users/macuser/Proyectos/std-qa-backed/mysql_data:/var/lib/mysql --network std-qa-back -e MYSQL_ROOT_PASSWORD=49421702 -d mariadb:10.2
+
+docker run -d --name std-qa-back -v /Users/macuser/Proyectos/std-qa-backed/app:/home/admin/app -p 9000:80 --network std-qa-back --link std-qa-back-mariadb:mysql  maomuriel/lara54-php70
+
+docker run --name myadmin -d --network std-qa-back -e PMA_HOST='std-qa-back-mariadb' -p 9090:80 phpmyadmin/phpmyadmin

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReporteTable extends Migration
+class AddFieldTransmitiendoToErroresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateReporteTable extends Migration
      */
     public function up()
     {
-        Schema::create('reportes', function (Blueprint $table) {
-            $table->increments('id');            
-            $table->timestamps();
+        Schema::table('errores', function (Blueprint $table) {
+            //
+            $table->string('transmitiendo',250);
         });
     }
 
@@ -26,6 +26,9 @@ class CreateReporteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reportes');
+        Schema::table('errores', function (Blueprint $table) {
+            //
+            $table->dropColumn('transmitiendo');
+        });
     }
 }
