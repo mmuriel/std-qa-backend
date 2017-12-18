@@ -129,6 +129,12 @@ header nav ul li a{
 }
 
 
+.slick-arrow a{
+
+	text-decoration: none;
+}
+
+
 .slick-arrow:hover{
 
 	transition-property: opacity;

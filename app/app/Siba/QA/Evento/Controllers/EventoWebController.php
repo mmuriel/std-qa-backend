@@ -25,12 +25,13 @@ class EventoWebController extends BaseController{
 	function index($id,Request $request){
 
 
+		$qback = $request->input("qback");
 		$evtRepo = new EventoRepo();
 		$repoRepo = new ReporteRepo();
 		$evento = $evtRepo->get($id);
 		$reportes = $repoRepo->find("evento='".$id."'");
 		$evtView = new EventoDetailView($evento);
-		return view("evento",['evento'=>$evento,'reportes'=>$reportes,'evtView'=>$evtView]);
+		return view("evento",['evento'=>$evento,'reportes'=>$reportes,'evtView'=>$evtView,'qback'=>$qback]);
 		//return "Hola Mundo...";
 	}
 

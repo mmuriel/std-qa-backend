@@ -6,6 +6,7 @@
 				
 				{!! $evtView->render() !!}
 
+				<a href="/?{{ base64_decode($qback) }}">Atrás</a>
 				<h3>Reportes</h3>
 				<div class="reportes">
 					<table class="reportes__list">

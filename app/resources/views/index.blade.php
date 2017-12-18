@@ -3,14 +3,21 @@
 
 	@section('content')
 				<div class="app__buscador">
+					<form action="" method="get" >
+					@if ($q == 'all')
 	        		<input type="text" name="q" id="q" class="buscador" placeholder="Buscar..." />
+	        		@else
+					<input type="text" name="q" id="q" class="buscador" placeholder="Buscar..." value="{{ $q }}"/>
+	        		@endif
+	        		<input type="submit" name="btnbuscar" value="Buscar">
+	        		</form>
 	        	</div>
 				<div class="horas">
 					<div class="horas__hora" id="hora_1">{{ date("H:i",$timebase) }}</div>
 					<div class="horas__hora" id="hora_1">{{ date("H:i",($timebase + 900)) }}</div>
 				</div>
 				<section class="route__body">
-					<div style="" class="slick-arrow" id="slick-arrow-left"><a href="?tb={{ $linksArrow['back'] }}"><span class="icon-nav-left"></span></a></span></div>
+					<div style="" class="slick-arrow" id="slick-arrow-left"><a href="?{{ $linksArrow['back'] }}"><span class="icon-nav-left"></span></a></span></div>
 					<ul class="canales listview_vertical">
 						@for ($i = 0; $i < count($programacion); $i++)
 						<li class="canal" data-chn="{{ $programacion[$i]['chn']['id'] }}">
@@ -27,7 +34,7 @@
 						</li>
 						@endfor
 					</ul>
-					<div style="" class="slick-arrow" id="slick-arrow-right"><a href="?tb={{ $linksArrow['next'] }}"><span class="icon-nav-right"></span></a></div>
+					<div style="" class="slick-arrow" id="slick-arrow-right"><a href="?{{ $linksArrow['next'] }}"><span class="icon-nav-right"></span></a></div>
 				</section>
 				<script>
 

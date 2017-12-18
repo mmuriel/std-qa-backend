@@ -14,11 +14,12 @@ class EventoView {
 		'childBoxleft' => 0,
 	);
 
-	public function __construct(Evento $evt,$timeBase){
+	public function __construct(Evento $evt,$timeBase,$qBack){
 
 		$this->timeBase = $timeBase;
 		$this->evt = $evt;
 		$this->timIni = strtotime($this->evt->begin);
+		$this->qBack = $qBack;
 
 	}
 
@@ -123,7 +124,7 @@ class EventoView {
 		$htmlToRet = '<li class="'.$classType.'" style="width: '.$this->styleBox['width'].'vw; left: '.$this->styleBox['left'].'vw" id="box-'.$this->evt->id.'">
 					<div class="canal__programas__programa__details" style="float:left; width: '.$this->styleBox['childBoxWidth'].'vw; left: '.$this->styleBox['childBoxleft'].'vw">
 						
-							<a href="/evento/'.$this->evt->id.'">'.$this->legibleTime().' - '.$this->evt->title.'</a>
+							<a href="/evento/'.$this->evt->id.'?qback='.$this->qBack.'">'.$this->legibleTime().' - '.$this->evt->title.'</a>
 						
 					</div>
 					'.$btns.'

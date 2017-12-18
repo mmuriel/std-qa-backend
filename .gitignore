@@ -1,3 +1,5 @@
 /mysql_data/
 /.phpintel/*
 php_errors.log
+/.phpintel/index
+.phpintel/

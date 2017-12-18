@@ -30,6 +30,9 @@ class QaController extends BaseController{
 
 
 		$strTimeBase = $request->input("tb","now");	
+		$qString = $request->input("q","all");
+		$qBack = base64_encode('tb='.$strTimeBase."&q=".$qString);
+
 		$lastOclockTimeDefiner	= new LastOclockTimeDefiner();
 		$timeBase = strtotime($strTimeBase);
 		$timeBase = $lastOclockTimeDefiner->defineLastOclockTime($timeBase);
@@ -37,7 +40,7 @@ class QaController extends BaseController{
 		/* Define los links de "adelante y atrás" */
 		if ($strTimeBase == 'now'){
 
-			$linksArrow = array('back'=>'-15mins','next'=>'15mins');
+			$linksArrow = array('back'=>'tb=-15mins&q='.$qString,'next'=>'tb=15mins&q='.$qString);
 
 		}
 		else{
@@ -45,16 +48,16 @@ class QaController extends BaseController{
 			preg_match("/^([\-0-9]{2,4})/",$strTimeBase,$actualMins);
 			$linksArrow = array('back'=>($actualMins[0] - 15),'next'=>($actualMins[0] + 15));
 			if ($linksArrow['back'] == 0){
-				$linksArrow['back'] = 'now';
+				$linksArrow['back'] = 'tb=now&q='.$qString;
 			}
 			else {
-				$linksArrow['back'] = $linksArrow['back']."mins";	
+				$linksArrow['back'] = "tb=".$linksArrow['back']."mins&q=".$qString;	
 			}
 			if ($linksArrow['next'] == 0){
-				$linksArrow['next'] = 'now';
+				$linksArrow['next'] = 'tb=now&q='.$qString;
 			}
 			else{
-				$linksArrow['next'] = $linksArrow['next']."mins";	
+				$linksArrow['next'] = "tb=".$linksArrow['next']."mins&q=".$qString;	
 			}
 		}
 		//echo date("Y-m-d H:i:s",$timeBase)."<br />";
@@ -63,9 +66,16 @@ class QaController extends BaseController{
 		$canalRepo = new CanalRepo();
         $eventoRepo = new EventoRepo();
         $canalFilters = array('filter'=>'');
-        $filtroCanales = '[{"lc":"","ele":[{"field":"nombre","operator":"like","value":"%ESPN%"}]}]';
-        $filtroChnUrlEncoded = urlencode ($filtroCanales);
-        $filtro = array('filter'=>$filtroChnUrlEncoded,"limit"=>"0,5",'fields'=>'id,name');
+        if ($qString != 'all'){
+			$filtroCanales = '[{"lc":"","ele":[{"field":"nombre","operator":"like","value":"%'.$qString.'%"}]}]';
+			$filtroChnUrlEncoded = urlencode ($filtroCanales);
+        	$filtro = array('filter'=>$filtroChnUrlEncoded,"limit"=>"0,20",'fields'=>'id,name');
+        }
+        else{
+
+        	$filtro = array("limit"=>"0,20",'fields'=>'id,name');
+        }
+        
 		$canales = $canalRepo->find($filtro);
 
 
@@ -114,7 +124,7 @@ class QaController extends BaseController{
 				$reportes = array();
 				$reportes = $reporteRepo->find(" evento='".$evt->id."' ");
 				$evt->setReportes($reportes);
-				$evtView = new EventoView($evt,$timeBase);
+				$evtView = new EventoView($evt,$timeBase,$qBack);
 				//$reportes = 
 				array_push($evts,$evtView);
 
@@ -126,7 +136,7 @@ class QaController extends BaseController{
 		print_r($programacion);
 		return "MMM";
 		*/
-		return view("index",["programacion"=>$programacion,"timebase"=>$timeBase,"linksArrow"=>$linksArrow]);
+		return view("index",["programacion"=>$programacion,"timebase"=>$timeBase,"linksArrow"=>$linksArrow,"q"=>$qString]);
 		//return "Hola Mundo...";
 	}
 
