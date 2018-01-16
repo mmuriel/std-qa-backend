@@ -27,10 +27,11 @@ Route::post('/reporte',"\Siba\QA\Reporte\Controllers\ReporteWebController@add");
 
 
 
-
+/*
 Route::get('/mm/{num}', function ($num) {
     return ("MMMMM".$num);
 });
+*/
 
 Route::get('/test/error', function () {
     

@@ -13,6 +13,8 @@ use Siba\QA\Error\ErrorRepo;
 use Siba\QA\Error\Error;
 use Siba\QA\WebApp\views\EventoView;
 use App\Helpers\LastOclockTimeDefiner;
+use Siba\QA\UsuarioCanales\UsuarioCanales;
+use Siba\QA\UsuarioCanales\UsuarioCanalesRepo;
 
 use App\User;
 
@@ -32,6 +34,10 @@ class QaController extends BaseController{
 		$strTimeBase = $request->input("tb","now");	
 		$qString = $request->input("q","all");
 		$qBack = base64_encode('tb='.$strTimeBase."&q=".$qString);
+		$user = Auth()->user();
+		//print_r($user->id);
+		//return "";
+
 
 		$lastOclockTimeDefiner	= new LastOclockTimeDefiner();
 		$timeBase = strtotime($strTimeBase);
@@ -66,14 +72,40 @@ class QaController extends BaseController{
 		$canalRepo = new CanalRepo();
         $eventoRepo = new EventoRepo();
         $canalFilters = array('filter'=>'');
-        if ($qString != 'all'){
+        if ($qString != 'all'){        	
+
 			$filtroCanales = '[{"lc":"","ele":[{"field":"nombre","operator":"like","value":"%'.$qString.'%"}]}]';
 			$filtroChnUrlEncoded = urlencode ($filtroCanales);
         	$filtro = array('filter'=>$filtroChnUrlEncoded,"limit"=>"0,20",'fields'=>'id,name');
         }
         else{
 
-        	$filtro = array("limit"=>"0,20",'fields'=>'id,name');
+        	/* Determina si el usuario tiene canales asociados */
+        	$ucRepo = new UsuarioCanalesRepo();
+        	$ucanales = $ucRepo->find(" usuario='".$user->id."' ");
+        	$filterIdCanalesEncoded = '';
+        	if ($ucanales->count()>0){
+
+        		$filterIdCanales = '[{"lc"  : "","ele" :[';
+        		$ctrlFirstField = 1;
+        		foreach ($ucanales as $usuarioCanal){
+
+        			if ($ctrlFirstField == 1)
+        				$filterIdCanales .= '{"field":"idcanal","operator":"=","value":"'.$usuarioCanal->canal.'"},';
+        			else
+        				$filterIdCanales .= '{"field":"idcanal","operator":"=","value":"'.$usuarioCanal->canal.'","lc":"or"},';
+        			$ctrlFirstField++;
+        		}
+        		$filterIdCanales = preg_replace("/,$/","",$filterIdCanales);
+        		$filterIdCanales .= ']}]';
+        		$filterIdCanalesEncoded = urlencode ($filterIdCanales);
+
+        	}
+
+        	if ($filterIdCanalesEncoded == '')
+        		$filtro = array("limit"=>"0,20",'fields'=>'id,name');
+        	else
+        		$filtro = array("limit"=>"0,20",'fields'=>'id,name','filter'=>$filterIdCanalesEncoded);
         }
         
 		$canales = $canalRepo->find($filtro);
@@ -82,8 +114,8 @@ class QaController extends BaseController{
 		//$dateIni = strtotime("-1h",$timeBase);
 		//$dateEnd = strtotime("+1h",$timeBase);
 
-		$dateIni = $timeBase + 7200;
-		$dateEnd = $timeBase - 7200;
+		$dateIni = $timeBase + 10800;
+		$dateEnd = $timeBase - 10800;
 
 		$dateIniStr = date("Y-m-d H:i:s",$dateIni);
 		$dateEndStr = date("Y-m-d H:i:s",$dateEnd);
@@ -129,7 +161,9 @@ class QaController extends BaseController{
 				array_push($evts,$evtView);
 
 			}
-			array_push($programacion,array('chn'=>$canal,'evts'=>$evts));
+			if (count($evts) > 0){
+				array_push($programacion,array('chn'=>$canal,'evts'=>$evts));
+			}
 		}
 		
 		/*
