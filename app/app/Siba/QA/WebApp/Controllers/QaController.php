@@ -76,7 +76,7 @@ class QaController extends BaseController{
 
 			$filtroCanales = '[{"lc":"","ele":[{"field":"nombre","operator":"like","value":"%'.$qString.'%"}]}]';
 			$filtroChnUrlEncoded = urlencode ($filtroCanales);
-        	$filtro = array('filter'=>$filtroChnUrlEncoded,"limit"=>"0,20",'fields'=>'id,name');
+        	$filtro = array('filter'=>$filtroChnUrlEncoded,"limit"=>"0,5",'fields'=>'id,name');
         }
         else{
 
@@ -103,9 +103,9 @@ class QaController extends BaseController{
         	}
 
         	if ($filterIdCanalesEncoded == '')
-        		$filtro = array("limit"=>"0,20",'fields'=>'id,name');
+        		$filtro = array("limit"=>"0,5",'fields'=>'id,name');
         	else
-        		$filtro = array("limit"=>"0,20",'fields'=>'id,name','filter'=>$filterIdCanalesEncoded);
+        		$filtro = array("limit"=>"0,5",'fields'=>'id,name','filter'=>$filterIdCanalesEncoded);
         }
         
 		$canales = $canalRepo->find($filtro);
