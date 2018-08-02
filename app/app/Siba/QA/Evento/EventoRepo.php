@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class EventoRepo implements IBaseRepo{	
 
-	//protected $apiUrl = 'https://apistd.siba.com.co/api/events';
-	protected $apiUrl = 'http://devstd.siba.com.co/api/events';
+	protected $apiUrl = 'https://apistd.siba.com.co/api/events';
+	//protected $apiUrl = 'http://devstd.siba.com.co/api/events';
 	
 	public function create($data){
 
