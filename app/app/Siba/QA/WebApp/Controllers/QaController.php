@@ -103,9 +103,9 @@ class QaController extends BaseController{
         	}
 
         	if ($filterIdCanalesEncoded == '')
-        		$filtro = array("limit"=>"0,50",'fields'=>'id,name');
+        		$filtro = array("limit"=>"0,25",'fields'=>'id,name');
         	else
-        		$filtro = array("limit"=>"0,50",'fields'=>'id,name','filter'=>$filterIdCanalesEncoded);
+        		$filtro = array("limit"=>"0,25",'fields'=>'id,name','filter'=>$filterIdCanalesEncoded);
         }
         
         /* Determina los canales sobre los que debe realizar la búsqueda */
