@@ -3,3 +3,5 @@
 php_errors.log
 /.phpintel/index
 .phpintel/
+
+comandos_docker_locales.txt

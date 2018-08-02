@@ -19,20 +19,31 @@
 				<section class="route__body">
 					<div style="" class="slick-arrow" id="slick-arrow-left"><a href="?{{ $linksArrow['back'] }}"><span class="icon-nav-left"></span></a></span></div>
 					<ul class="canales listview_vertical">
-						@for ($i = 0; $i < count($programacion); $i++)
-						<li class="canal" data-chn="{{ $programacion[$i]['chn']['id'] }}">
+						@if (isset($programacion['nodata']))
+						<li class="canal">
 							<div class="canal__header">
-								{{ $programacion[$i]['chn']['name'] }}
+								No data
 							</div>
-							<ul class="canal__programas listview_horizontal" data-chn="{{ $programacion[$i]['chn']['id'] }}">
-								@for ($j = 0 ; $j < count($programacion[$i]['evts']); $j++)
-								
-											{!! $programacion[$i]['evts'][$j]->render() !!}
-								
-								@endfor
-							</ul>
 						</li>
-						@endfor
+						@else
+							
+							@for ($i = 0; $i < count($programacion); $i++)
+							<li class="canal" data-chn="{{ $programacion[$i]['chn']['id'] }}">
+								<div class="canal__header">
+									{{ $programacion[$i]['chn']['name'] }}
+								</div>
+								<ul class="canal__programas listview_horizontal" data-chn="{{ $programacion[$i]['chn']['id'] }}">
+									@for ($j = 0 ; $j < count($programacion[$i]['evts']); $j++)
+									
+												{!! $programacion[$i]['evts'][$j]->render() !!}
+									
+									@endfor
+								</ul>
+							</li>
+							@endfor
+							
+						@endif
+
 					</ul>
 					<div style="" class="slick-arrow" id="slick-arrow-right"><a href="?{{ $linksArrow['next'] }}"><span class="icon-nav-right"></span></a></div>
 				</section>
