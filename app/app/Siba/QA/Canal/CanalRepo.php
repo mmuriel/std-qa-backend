@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 class CanalRepo implements IBaseRepo{
 
 
-	protected $apiUrl = 'https://apistd.siba.com.co/api/channels';
+	//protected $apiUrl = 'https://apistd.siba.com.co/api/channels';
+	protected $apiUrl = 'http://devstd.siba.com.co/api/channels';
 	
 	public function create($data){
 

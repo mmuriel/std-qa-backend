@@ -16,10 +16,10 @@ docker run --name std-qa-back-mariadb -v [/my/own/datadir]:/var/lib/mysql --netw
 
 La imagen de este contenedor: https://hub.docker.com/_/mariadb/ (docker pull mariadb:10.2)
 
-docker run -d --name std-qa-back -v [/path/to/app]:/home/admin/app -p 9000:80 --network std-qa-back --link std-qa-back-mariadb:mysql  maomuriel/lara54-php70
+docker run -d --name std-qa-back -v [/path/to/app]:/home/admin/app -p 9000:80 --network std-qa-back --link std-qa-back-mariadb:mysql  maomuriel/lara54-php70:v0.1.1 (si esta imagen falla, utilizar el tag: latest, la imagen con el tag v0.1.1 solo difiere en la definción de zona horaria a America/Bogota)
 
 3. Lanza contenedor phpMyAdmin
 
 La imagen de este contenedor: https://hub.docker.com/r/phpmyadmin/phpmyadmin/
 
-docker run --name myadmin -d --network std-qa-back -e PMA_HOST='std-qa-back-mariadb' -p 9090:80 phpmyadmin/phpmyadmin
+docker run --name std-qa-myadmin -d --network std-qa-back -e PMA_HOST='std-qa-back-mariadb' -p 9090:80 phpmyadmin/phpmyadmin
