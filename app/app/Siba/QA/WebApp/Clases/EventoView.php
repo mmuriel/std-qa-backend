@@ -102,7 +102,7 @@ class EventoView {
 		$qtyRep = count($this->evt->reportes);
 
 		$classType = 'canal__programas__programa';
-		$btns = '<div class="canal__programas__programa__btns" style="float:left; width: '.$this->styleBox['childBoxWidth'].'vw; left: '.$this->styleBox['childBoxleft'].'vw"><button class="canal__programas__programa__btns__btnok" data-idprg="'.$this->evt->id.'">Ok</button> <button class="canal__programas__programa__btns__btnerror">Error</button></div>';
+		$btns = '<div class="canal__programas__programa__btns" style="float:left; width: '.$this->styleBox['childBoxWidth'].'vw; left: '.$this->styleBox['childBoxleft'].'vw"><button class="canal__programas__programa__btns__btnok" data-idprg="'.$this->evt->id.'">Ok</button></div>';
 
 		if ($qtyRep > 0){
 
