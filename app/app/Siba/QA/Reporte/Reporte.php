@@ -26,7 +26,7 @@ class Reporte extends Model
 {
     //
     protected $table='reportes';
-    protected $fillable = array('idmd5','usuario','tipo','evento','canal');
+    protected $fillable = array('idmd5','usuario','tipo','evento','canal','evento_titulo','evento_fechahora');
 
 
     public function errores(){

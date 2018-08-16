@@ -219,6 +219,8 @@ $(document).ready(function(){
 					evt: '{{ $evento->id }}',
 					tipo: '1',
 					chn: '{{ $evento->channel()->id }}',
+					evt_titulo: '{{ $evento->title }}',
+					evt_fechahora: '{{ $evento->begin }}',
 					_toke: '{{ csrf_token() }}'
 
 				}
@@ -262,6 +264,8 @@ $(document).ready(function(){
 						evt: '{{ $evento->id }}',
 						tipo: '0',
 						chn: '{{ $evento->channel()->id }}',
+						evt_titulo: '{{ $evento->title }}',
+						evt_fechahora: '{{ $evento->begin }}',
 						_toke: '{{ csrf_token() }}',
 						error_tipo: error_tipo,
 						error_motivo: error_motivo,
@@ -276,6 +280,8 @@ $(document).ready(function(){
 						evt: '{{ $evento->id }}',
 						tipo: '0',
 						chn: '{{ $evento->channel()->id }}',
+						evt_titulo: '{{ $evento->title }}',
+						evt_fechahora: '{{ $evento->begin }}',
 						_toke: '{{ csrf_token() }}',
 						error_tipo: error_tipo,
 						error_motivo: error_motivo,

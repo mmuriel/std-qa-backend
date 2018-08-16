@@ -28,9 +28,12 @@ class ReporteWebController extends BaseController{
 			'usuario' => $user->email,
 			'tipo' => $request->input("tipo"),
 			'evento' => $request->input("evt"),
-			'canal' => $request->input("chn")
+			'canal' => $request->input("chn"),
+			'evento_titulo' => $request->input('evt_titulo'),
+			'evento_fechahora' => $request->input('evt_fechahora')
 		];
 
+		//return response()->json($repoData);
 		$reporteRepo = new ReporteRepo();
 		$reporte = $reporteRepo->create($repoData);
 		$reporte = $reporteRepo->save($reporte);
