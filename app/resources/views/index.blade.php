@@ -12,7 +12,7 @@
 	        		<input type="submit" name="btnbuscar" value="Buscar">
 	        		</form>
 	        	</div>
-				<div class="horas">
+				<div class="horas fixme">
 					<div class="horas__hora" id="hora_1">{{ date("H:i",$timebase) }}</div>
 					<div class="horas__hora" id="hora_1">{{ date("H:i",($timebase + 900)) }}</div>
 				</div>
@@ -61,6 +61,8 @@
 						e.preventDefault();
 						let idprg = $(e.target).attr("data-idprg");
 						let idchn = $(e.target).parents(".canal").attr('data-chn');
+						let evtTitle = $(e.target).attr('data-evttitle');
+						let evtDatetime = $(e.target).attr('data-evtdatetime');
 
 						console.log(idchn);
 						$.ajax({
@@ -70,6 +72,8 @@
 								evt: idprg,
 								tipo: 1,
 								chn: idchn,
+								evt_titulo: evtTitle,
+								evt_fechahora: evtDatetime,
 								_token: '{{ csrf_token() }}'
 
 							},
@@ -104,6 +108,34 @@
 						}
 
 					}
+
+
+
+
+					let fixmeTop = $('.fixme').offset().top;
+					$(window).scroll(function(){
+
+					    let currentScroll = $(window).scrollTop();
+					    //console.log(fixmeTop+' - '+currentScroll);
+					    if (currentScroll >= fixmeTop) {
+					        $('.fixme').css({
+					            position: 'fixed',
+					            top: '0',
+					            left: '0',
+					            zIndex: '99999'
+					        });
+					        $('.canales').css({
+					        	marginTop:'1.5rem'
+					        });
+					    } else {
+					        $('.fixme').css({
+					            position: 'relative'
+					        });
+					        $('.canales').css({
+					        	marginTop:'0rem'
+					        });
+					    }
+					});
 
 				</script>
 		

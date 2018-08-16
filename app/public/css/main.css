@@ -111,8 +111,8 @@ header nav ul li a{
 
 .slick-arrow{
 
-	position: absolute; 
-	top: 45%; 
+	position: fixed; 
+	top: 2rem; 
 	z-index: 100000; 
 	
 	font-size: 2rem; 
@@ -456,6 +456,7 @@ header nav ul li a{
 	background-color: #bbf4c1;
 
 }
+
 
 
 
