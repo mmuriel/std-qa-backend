@@ -5,6 +5,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Siba\QA\Canal\Canal;
 use Siba\QA\Canal\CanalRepo;
+use Siba\QA\ClienteCanal\ClienteCanal;
+use Siba\QA\ClienteCanal\ClienteCanalRepo;
 use Siba\QA\Evento\EventoRepo;
 use Siba\QA\Evento\Evento;
 use Siba\QA\Reporte\ReporteRepo;
@@ -69,14 +71,23 @@ class QaController extends BaseController{
 		//echo date("Y-m-d H:i:s",$timeBase)."<br />";
 		//echo $timeBase."<br /><br />";
 		//return "";
-		$canalRepo = new CanalRepo();
+		$clienteCanalRepo = new ClienteCanalRepo();
+		$clienteCanalRepo->setClient(27);
         $eventoRepo = new EventoRepo();
         $canalFilters = array('filter'=>'');
-        if ($qString != 'all'){        	
+        if ($qString != 'all'){   
 
-			$filtroCanales = '[{"lc":"","ele":[{"field":"nombre","operator":"like","value":"%'.$qString.'%"}]}]';
+        	if (preg_match("/([0-9]{3,4})/",$qString,$arrMatches)){
+        		$channelFrq = $arrMatches[1];
+        		$filtroCanales = '[{"lc":"","ele":[{"field":"name","operator":"like","value":"%'.$qString.'%"}]},{"lc":"or","ele":[{"field":"frequency","operator":"=","value":"'.$channelFrq.'"}]}]';
+        	}
+        	else{
+        		$filtroCanales = '[{"lc":"","ele":[{"field":"name","operator":"like","value":"%'.$qString.'%"}]}]';
+        	}
+
+			
 			$filtroChnUrlEncoded = urlencode ($filtroCanales);
-        	$filtro = array('filter'=>$filtroChnUrlEncoded,"limit"=>"0,50",'fields'=>'id,name');
+        	$filtro = array('filter'=>$filtroChnUrlEncoded,"limit"=>"0,50");
         }
         else{
 
@@ -91,9 +102,9 @@ class QaController extends BaseController{
         		foreach ($ucanales as $usuarioCanal){
 
         			if ($ctrlFirstField == 1)
-        				$filterIdCanales .= '{"field":"idcanal","operator":"=","value":"'.$usuarioCanal->canal.'"},';
+        				$filterIdCanales .= '{"field":"channel","operator":"=","value":"'.$usuarioCanal->canal.'"},';
         			else
-        				$filterIdCanales .= '{"field":"idcanal","operator":"=","value":"'.$usuarioCanal->canal.'","lc":"or"},';
+        				$filterIdCanales .= '{"field":"channel","operator":"=","value":"'.$usuarioCanal->canal.'","lc":"or"},';
         			$ctrlFirstField++;
         		}
         		$filterIdCanales = preg_replace("/,$/","",$filterIdCanales);
@@ -101,16 +112,16 @@ class QaController extends BaseController{
         		$filterIdCanalesEncoded = urlencode ($filterIdCanales);
 
         	}
-
         	if ($filterIdCanalesEncoded == '')
-        		$filtro = array("limit"=>"0,25",'fields'=>'id,name');
+        		$filtro = array("limit"=>"0,25");
         	else
-        		$filtro = array("limit"=>"0,25",'fields'=>'id,name','filter'=>$filterIdCanalesEncoded);
+        		$filtro = array("limit"=>"0,25",'filter'=>$filterIdCanalesEncoded);
         }
         
         /* Determina los canales sobre los que debe realizar la búsqueda */
-		$canales = $canalRepo->find($filtro);
-
+		clock()->startEvent('get-canales', "Tomando los canales para aplicar la busqueda");
+		$canales = $clienteCanalRepo->find($filtro);
+		clock()->endEvent('get-canales');
 
 		/* Valida si existen canales */
 		if ($canales->count() == 0){
@@ -147,16 +158,20 @@ class QaController extends BaseController{
 		foreach ($canales as $canal){
 			$evts = array();
 			if ($ctrlChn == 0)
-				$filter .= '{"field": "channel","operator":"=","value":"'.$canal->id.'"}';
+				$filter .= '{"field": "channel","operator":"=","value":"'.$canal->channel.'"}';
 			else
-				$filter .= ',{"lc":"or","field":"channel","operator": "=","value": "'.$canal->id.'"}';
+				$filter .= ',{"lc":"or","field":"channel","operator": "=","value": "'.$canal->channel.'"}';
 			$ctrlChn++;
 		}
 		$filter .= ']}]';
 		//print_r($filter);
 		//return "MMM";
 		$filterUrlEncoded = urlencode ($filter);
+		
+		clock()->startEvent('get-eventos', "Tomando los eventos a desplegar");
 		$eventos = $eventoRepo->find(array('filter'=>$filterUrlEncoded,'limit'=>'0,350'));
+		clock()->endEvent('get-eventos');
+
 		$evts = array();
 		foreach ($eventos as $evt){
 			$reportes = array();
@@ -172,11 +187,9 @@ class QaController extends BaseController{
 		}
 
 		foreach ($canales as $canal){
-
-			if (isset($evts[$canal->id]) && count($evts[$canal->id]) > 0){
-				array_push($programacion,array('chn'=>$canal,'evts'=>$evts[$canal->id]));
+			if (isset($evts[$canal->channel]) && count($evts[$canal->channel]) > 0){
+				array_push($programacion,array('chn'=>$canal,'evts'=>$evts[$canal->channel]));
 			}
-			
 		}
 		//print_r($programacion);
 		//return ("");

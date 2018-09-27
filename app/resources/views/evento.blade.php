@@ -55,11 +55,11 @@
 							Estado del evento:
 						</div>
 						<div class="form-box__input-box__input">
-							<div>
+							<div class="form-box__input-box__input__typeselector">
 							<label for="reporte-tipo-ok">Correcto</label>
 							<input type="radio" name="reporte-tipo" value="ok" id="reporte-tipo-ok">
 							</div>
-							<div>
+							<div class="form-box__input-box__input__typeselector">
 							<label for="reporte-tipo-error">Errado</label>
 							<input type="radio" name="reporte-tipo" value="error" id="reporte-tipo-error">
 							</div>

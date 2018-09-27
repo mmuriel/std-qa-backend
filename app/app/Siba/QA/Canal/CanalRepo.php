@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 class CanalRepo implements IBaseRepo{
 
 
-	protected $apiUrl = 'https://apistd.siba.com.co/api/channels';
-	//protected $apiUrl = 'http://devstd.siba.com.co/api/channels';
+	//protected $apiUrl = 'https://apistd.siba.com.co/api/channels';
+	protected $apiUrl = 'http://devstd.siba.com.co/api/channels';
 	
 	public function create($data){
 
@@ -46,7 +46,10 @@ class CanalRepo implements IBaseRepo{
 			}
 			$reqQuery = preg_replace("/&$/","",$reqQuery);
 		}
+		clock()->startEvent('get-canales-ws', "Llamando microservicio canales");
+		clock()->info("Canales URL: ".$this->apiUrl.'?'.$reqQuery);
 		$data = (array) json_decode(Curl::urlGet($this->apiUrl.'?'.$reqQuery));
+		clock()->endEvent('get-canales-ws');
 
 		if (count($data['channels']) > 0){
 			for ($i=0;$i<count($data['channels']);$i++){

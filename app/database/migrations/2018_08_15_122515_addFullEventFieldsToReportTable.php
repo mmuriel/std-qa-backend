@@ -17,7 +17,7 @@ class AddFullEventFieldsToReportTable extends Migration
         Schema::table('reportes', function (Blueprint $table) {
             //
             $table->string('evento_titulo',250)->after('evento');
-            $table->dateTime('evento_fechahora')->after('evento_titulo');
+            $table->dateTime('evento_fechahora')->nullable()->after('evento_titulo');
 
         });
     }

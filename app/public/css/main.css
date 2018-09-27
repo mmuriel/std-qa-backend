@@ -382,6 +382,25 @@ header nav ul li a{
 	position: relative;
 }
 
+
+.form-box__input-box__input__typeselector{
+
+	padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+
+}
+
+.form-box__input-box__input__typeselector--selected{
+
+    width: 90% !important;
+
+}
+
+.form-box__input-box__input__typeselector input{
+
+	width: auto !important;
+
+}
+
 .form-box__input-box input,select,textarea{
 	width: 90%;
 	padding: 0.5rem;

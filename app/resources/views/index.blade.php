@@ -28,9 +28,13 @@
 						@else
 							
 							@for ($i = 0; $i < count($programacion); $i++)
-							<li class="canal" data-chn="{{ $programacion[$i]['chn']['id'] }}">
+							<li class="canal" data-chn="{{ $programacion[$i]['chn']->channel }}">
 								<div class="canal__header">
-									{{ $programacion[$i]['chn']['name'] }}
+									@if ($programacion[$i]['chn']['frequency'] != null && $programacion[$i]['chn']['frequency'] != 'null')
+										({{ $programacion[$i]['chn']['frequency'] }}) {{ $programacion[$i]['chn']['name'] }}
+									@else
+										{{ $programacion[$i]['chn']['name'] }}
+									@endif
 								</div>
 								<ul class="canal__programas listview_horizontal" data-chn="{{ $programacion[$i]['chn']['id'] }}">
 									@for ($j = 0 ; $j < count($programacion[$i]['evts']); $j++)

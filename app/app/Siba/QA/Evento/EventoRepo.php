@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class EventoRepo implements IBaseRepo{	
 
-	protected $apiUrl = 'https://apistd.siba.com.co/api/events';
-	//protected $apiUrl = 'http://devstd.siba.com.co/api/events';
+	//protected $apiUrl = 'https://apistd.siba.com.co/api/events';
+	protected $apiUrl = 'http://devstd.siba.com.co/api/events';
 	
 	public function create($data){
 
@@ -41,7 +41,14 @@ class EventoRepo implements IBaseRepo{
 			}
 			$reqQuery = preg_replace("/&$/","",$reqQuery);
 		}
+		
+
+		clock()->startEvent('get-eventos-ws', "Llamando microservicio eventos");
+		clock()->info("Eventos URL: ".$this->apiUrl.'?'.$reqQuery);
 		$data = (array) json_decode(Curl::urlGet($this->apiUrl.'?'.$reqQuery));
+		clock()->endEvent('get-eventos-ws');
+
+
 		if (count($data['events']) > 0){
 			for ($i=0;$i<count($data['events']);$i++){
 				$evtRaw = (array) $data['events'][$i];
