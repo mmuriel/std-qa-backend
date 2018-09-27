@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 class ClienteCanalRepo implements IBaseRepo{
 
 
-	//protected $apiUrl = 'https://apistd.siba.com.co/api/clients';
-	protected $apiUrl = 'http://devstd.siba.com.co/api/clients';
+	protected $apiUrl = 'https://apistd.siba.com.co/api/clients';
+	//protected $apiUrl = 'http://devstd.siba.com.co/api/clients';
 	//protected $apiUrl = 'http://std-dev2:7000/api/clients';
 	protected $idClient;
 

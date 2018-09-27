@@ -38,6 +38,10 @@ Route::get('/test/info',function(){
 	return phpinfo();
 });
 
+
+Route::get('/test',function(){echo "Hola mundo";});
+
+
 //Registra todas las rutas relacionadas con el sistema "built-in" de laravel para autenticación de usuario
 Auth::routes();
 
