@@ -57,8 +57,8 @@ class InformeWebController extends BaseController{
             $mailer->addAttachment($reportFile);
             $mailer->Subject = 'Reporte SIBA QA ('.date("Y-m-d H:i:s").")";
             $mailer->Body    = 'Se adjunta el reporte de QA para el periodo: '.$request->input('dateini').' al '.$request->input('datefin');
-            //if(!$mailer->send()) {
-            if(false){
+            if(!$mailer->send()) {
+            //if(false){
                 //$this->error('Se ha producido un error generando el reporte: '.$mailer->ErrorInfo);
                 return response()->json([
                 			'data'=>[
