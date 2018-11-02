@@ -68,7 +68,6 @@
 						let evtTitle = $(e.target).attr('data-evttitle');
 						let evtDatetime = $(e.target).attr('data-evtdatetime');
 
-						console.log(idchn);
 						$.ajax({
 							url: '/reporte',
 							method:'post',

@@ -8,6 +8,9 @@
 				<a href="/">Home</a>
 			</li>
 			<li>
+				<a href="/informe">Informes</a>
+			</li>
+			<li>
 				<a href="{{ route('logout') }}" id="logout-link">
                                             Logout
 				</a>

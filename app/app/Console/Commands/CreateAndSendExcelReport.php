@@ -77,7 +77,7 @@ class CreateAndSendExcelReport extends Command
 
                     $mailer->addAttachment($reportFile);
                     $mailer->Subject = 'Reporte SIBA QA ('.date("Y-m-d H:i:s").")";
-                    $mailer->Body    = 'Se adjunta el reporte de QA para el periodo: '.$this->argument('dateini').' al '.$$this->argument('datefin');
+                    $mailer->Body    = 'Se adjunta el reporte de QA para el periodo: '.$this->argument('dateini').' al '.$this->argument('datefin');
 
                     
                     
@@ -93,7 +93,7 @@ class CreateAndSendExcelReport extends Command
         }
         catch(\Exception $e){
 
-            $this->error('Se ha producido un error generando el reporte: '.$e->getMessage);
+            $this->error('Se ha producido un error generando el reporte: '.$e->getMessage());
         }
     }
 }

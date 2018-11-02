@@ -5,5 +5,6 @@ php_errors.log
 .phpintel/
 /app/storage/testing/
 /app/storage/reports/
-
+app/.DS_Store
 comandos_docker_locales.txt
+app/storage/.DS_Store

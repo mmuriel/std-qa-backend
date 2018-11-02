@@ -480,3 +480,64 @@ header nav ul li a{
 
 
 
+
+/*
+
+
+	Estilos para la página del informe
+
+
+*/
+.informe-box{
+
+	position: relative;
+	width:98%;
+	margin: auto;
+	text-align: center;
+
+}
+
+
+.form_informe_input{
+
+	border-radius: 0.5rem;
+	font-size: 1.8rem;
+	margin: 1rem auto 1rem auto;
+	width: 98%;
+
+}
+
+.msg-displayer{
+
+	position: relative;
+	width: 98%;
+	margin: auto;
+	padding: 1rem;
+	text-align: center;
+	display: none;
+	background-color: none;
+	color: auto;
+}
+
+
+.msg-displayer--ok{
+
+	display: block;
+	background-color: green;
+	color: #fff;
+}
+
+
+.msg-displayer--error{
+	display: block;
+	background-color: red;
+	color: #fff;
+}
+
+
+.msg-displayer--processing{
+	display: block;
+	background-color: #FAD96C;
+	color: #000;
+}
+

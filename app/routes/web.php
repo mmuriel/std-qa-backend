@@ -13,6 +13,8 @@
 Route::get('/', "\Siba\QA\WebApp\Controllers\QaController@index");
 Route::get('/evento/{id}', "\Siba\QA\Evento\Controllers\EventoWebController@index");
 Route::post('/reporte',"\Siba\QA\Reporte\Controllers\ReporteWebController@add");
+Route::get('/informe',"\Siba\QA\Reporte\Controllers\InformeWebController@index");
+Route::post('/informe',"\Siba\QA\Reporte\Controllers\InformeWebController@create");
 //Route::get('/login', "\Siba\QA\Evento\Controllers\EventoWebController@index");
 //Route::post('/reporte/{id}', "\Siba\QA\Reporte\Controllers\ReporteWebController@add");
 
