@@ -36,6 +36,9 @@ class CreateErroresTable extends Migration
             */
             $table->integer('desfase');
             $table->timestamps();
+            $table->string('transmitiendo',250);
+            $table->integer('reporte')->unsigned()->index();
+            $table->foreign('reporte')->references('id')->on('reportes');
         });
     }
 

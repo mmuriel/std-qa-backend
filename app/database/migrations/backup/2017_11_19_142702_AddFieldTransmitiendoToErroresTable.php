@@ -15,7 +15,7 @@ class AddFieldTransmitiendoToErroresTable extends Migration
     {
         Schema::table('errores', function (Blueprint $table) {
             //
-            $table->string('transmitiendo',250);
+            $table->string('transmitiendo',250)->default('');
         });
     }
 

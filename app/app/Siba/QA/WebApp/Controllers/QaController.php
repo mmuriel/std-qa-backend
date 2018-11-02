@@ -72,7 +72,7 @@ class QaController extends BaseController{
 		//echo $timeBase."<br /><br />";
 		//return "";
 		$clienteCanalRepo = new ClienteCanalRepo();
-		$clienteCanalRepo->setClient(27);
+		$clienteCanalRepo->setClient(43);
         $eventoRepo = new EventoRepo();
         $canalFilters = array('filter'=>'');
         if ($qString != 'all'){   
@@ -119,9 +119,9 @@ class QaController extends BaseController{
         }
         
         /* Determina los canales sobre los que debe realizar la búsqueda */
-		clock()->startEvent('get-canales', "Tomando los canales para aplicar la busqueda");
+		//clock()->startEvent('get-canales', "Tomando los canales para aplicar la busqueda");
 		$canales = $clienteCanalRepo->find($filtro);
-		clock()->endEvent('get-canales');
+		//clock()->endEvent('get-canales');
 
 		/* Valida si existen canales */
 		if ($canales->count() == 0){
@@ -168,9 +168,9 @@ class QaController extends BaseController{
 		//return "MMM";
 		$filterUrlEncoded = urlencode ($filter);
 		
-		clock()->startEvent('get-eventos', "Tomando los eventos a desplegar");
+		//clock()->startEvent('get-eventos', "Tomando los eventos a desplegar");
 		$eventos = $eventoRepo->find(array('filter'=>$filterUrlEncoded,'limit'=>'0,350'));
-		clock()->endEvent('get-eventos');
+		//clock()->endEvent('get-eventos');
 
 		$evts = array();
 		foreach ($eventos as $evt){

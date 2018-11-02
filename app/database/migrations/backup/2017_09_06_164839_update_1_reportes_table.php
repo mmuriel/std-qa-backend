@@ -15,12 +15,12 @@ class Update1ReportesTable extends Migration
     {
         Schema::table('reportes', function (Blueprint $table) {
             //
-            $table->string('idmd5',32);
-            $table->integer('usuario')->unsigned()->index();
-            $table->enum('tipo',['1','0'])->comment('Código del tipo de error: 1 = Reporte evento OK; 0 = Reporte evento Error');//1 = Reporte evento OK; 0 = Reporte evento Error
-            $table->integer('evento')->unsigned()->index();
-            $table->integer('canal')->unsigned()->index();
-            $table->integer('error')->unsigned()->index();
+            $table->string('idmd5',32)->default('');
+            $table->integer('usuario')->unsigned()->index()->default('');
+            $table->enum('tipo',['1','0'])->comment('Código del tipo de error: 1 = Reporte evento OK; 0 = Reporte evento Error')->default('');//1 = Reporte evento OK; 0 = Reporte evento Error
+            $table->integer('evento')->unsigned()->index()->default('');
+            $table->integer('canal')->unsigned()->index()->default('');
+            $table->integer('error')->unsigned()->index()->default('');
         });
     }
 

@@ -32,7 +32,6 @@
 								@endif
 							</td>
 							<td>
-								
 								@if ($reportes[$i]->tipo == 0 && $reportes[$i]->errores->first() != NULL )
 									@if ($reportes[$i]->errores->first()->tipo == 1 )
 										Desfase horario

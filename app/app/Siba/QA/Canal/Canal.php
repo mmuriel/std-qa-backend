@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class Canal extends Model
 {
     //
-    protected $fillable = ['id','name','desc'];
+    protected $fillable = ['id','name','desc','prod_company'];
     protected $events = '';
 
 

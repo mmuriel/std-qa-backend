@@ -14,8 +14,16 @@ class CreateReporteTable extends Migration
     public function up()
     {
         Schema::create('reportes', function (Blueprint $table) {
-            $table->increments('id');            
+            $table->increments('id');
             $table->timestamps();
+            $table->string('idmd5',32);
+            $table->enum('tipo',['1','0'])->comment('Código del tipo de error: 1 = Reporte evento OK; 0 = Reporte evento Error');
+            $table->string('usuario',160)->index();
+            $table->integer('evento')->unsigned()->index();
+            $table->string('evento_titulo',250);
+            $table->dateTime('evento_fechahora')->nullable();
+            $table->integer('canal')->unsigned()->index();
+
         });
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleefs\Test;
+namespace Siba\Test;
 
 use Illuminate\Foundation\Testing\TestCase ;
 use Illuminate\Contracts\Console\Kernel;

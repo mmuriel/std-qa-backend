@@ -10,9 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 class ClienteCanalRepo implements IBaseRepo{
 
 
-	protected $apiUrl = 'https://apistd.siba.com.co/api/clients';
-	//protected $apiUrl = 'http://devstd.siba.com.co/api/clients';
-	//protected $apiUrl = 'http://std-dev2:7000/api/clients';
+	//protected $apiUrl = 'https://apistd.siba.com.co/api/clients';//Production
+	protected $apiUrl = 'http://devstd.siba.com.co/api/clients';//Dev
 	protected $idClient;
 
 
@@ -53,10 +52,10 @@ class ClienteCanalRepo implements IBaseRepo{
 			}
 			$reqQuery = preg_replace("/&$/","",$reqQuery);
 		}
-		clock()->startEvent('get-clientecanales-ws', "Llamando microservicio canales");
-		clock()->info("Canales del cliente URL: ".$this->apiUrl.'/'.$this->idClient."/channels".'?'.$reqQuery);
+		//clock()->startEvent('get-clientecanales-ws', "Llamando microservicio canales");
+		//clock()->info("Canales del cliente URL: ".$this->apiUrl.'/'.$this->idClient."/channels".'?'.$reqQuery);
 		$data = (array) json_decode(Curl::urlGet($this->apiUrl.'/'.$this->idClient."/channels".'?'.$reqQuery));
-		clock()->endEvent('get-clientecanales-ws');
+		//clock()->endEvent('get-clientecanales-ws');
 		//print_r($data);
 		//return 'MMMMMM';
 		

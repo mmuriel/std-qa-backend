@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleefs\Test;
+namespace Siba\Test;
 
 use Illuminate\Foundation\Testing\TestCase ;
 use Illuminate\Contracts\Console\Kernel;
@@ -19,8 +19,8 @@ class EventoAPITest extends TestCase {
 
     public function testGetEventoFromAPI(){
         $eventoRepo = new EventoRepo();
-        $evt = $eventoRepo->get('271191433');
-        $this->assertEquals("Eventos",$evt->title);
+        $evt = $eventoRepo->get('365745435');
+        $this->assertEquals("Eventos",$evt->title,"Error comparando el nombre: ");
         $this->assertEquals("968",$evt->channel()->id);
 
     }
