@@ -59,9 +59,9 @@ class CreateAndSendExcelReport extends Command
                     $arrEmailsTo = preg_split("/\,/",$this->argument('emailsto'));
                     $mailer = new PHPMailer();
                     $mailer->isSMTP();
-                    $mailer->Host = "port80.smtpcorp.com";
+                    $mailer->Host = "mail.smtp2go.com";
                     $mailer->Username = 'mmuriel@siba.com.co';                 // SMTP username
-                    $mailer->Password = '49421702Mm!';                           // SMTP password
+                    $mailer->Password = '2309Amq_28';                           // SMTP password
                     $mailer->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
                     $mailer->Port = '443';  
                     $mailer->SMTPAuth = "true";
